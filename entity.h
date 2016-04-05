@@ -1,8 +1,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <dxflib/dl_dxf.h>
+#include <libdxfrw0/libdxfrw.h>
 #include <QString>
+#include <stdio.h>
 #include <qmath.h>
 
 class entity
@@ -10,21 +11,19 @@ class entity
 public:
     entity();
     ~entity();
-    void createWall(DL_Dxf *, DL_WriterA* ,float, float, float, float,
-                    string, int, int, string);
-    //void createFlower(DL_Dxf *, DL_WriterA*, float, float, float);
-    void createFlange(DL_Dxf *, DL_WriterA*, float, float, float);
-    void startDXF(DL_Dxf *, DL_WriterA *);
-    void closeDXF(DL_WriterA *);
+    void createWall(float, float, float, float,
+                    QString, int, int, QString);
+    //void createFlower(dxfRW *, DL_WriterA*, float, float, float);
+    void createFlange(dxfRW *, float, float, float);
+    void startDXF(dxfRW *);
+    void closeDXF();
 
-    DL_Dxf *return_dxf();
-    DL_WriterA *return_dw();
+    dxfRW *return_dxf();
+//    DL_WriterA *return_dw();
 
-    DL_Dxf *dxf;
-    DL_Codes::version exportVersion;
-    DL_WriterA* dw;
-
-    int num_layers;
+    dxfRW *dxf;
+    DRW::Version exportVersion;
+//    DL_WriterA* dw;
 };
 
 #endif // ENTITY_H

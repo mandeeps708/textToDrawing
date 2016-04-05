@@ -51,24 +51,24 @@ int main()
             ++count;
             v = new QVector<QString>(5);
             (*v)[0] = c;
-            qDebug() << "wall";
+//            qDebug() << "wall";
         }
         if(c == "ball\n")
         {
             ++count;
             v = new QVector<QString>(4);
             (*v)[0] = c;
-            qDebug() << "ball";
+//            qDebug() << "ball";
         }
         if(c == "l\n" && count >= 0 && v != NULL)
         {
-            qDebug() << "l";
+//            qDebug() << "l";
             (*v)[1] = ofile.readLine();
 
         }
         if(c == "h\n" && count >= 0 && v != NULL)
         {
-            qDebug() << "h";
+//            qDebug() << "h";
             (*v)[2] = ofile.readLine();
 
         }
@@ -94,44 +94,46 @@ int main()
         }
         if(c == "\n" && count >= 0 && v != NULL)
         {
-            qDebug() << "v : " << v;
+//            qDebug() << "v : " << v;
             bigV.append(v);
             //delete v;
             //v = 0;
         }
     }
-    qDebug() << bigV.count();
+//    qDebug() << bigV.count();
 
     ofile.close();
 
     // creating the entity class' object and calling its function
     entity e;
 
-    DL_Dxf *abc = e.return_dxf();
-    DL_WriterA *def = e.return_dw();
-    e.startDXF(abc, def);
+//    dxfRW *abc = e.return_dxf();
+//    DL_WriterA *def = e.return_dw();
+//    e.startDXF(abc);
 
-    for (int i = 0; i < bigV.size(); ++i)
-    {
-        QVector<QString>* ab = bigV.at(i);
-        if (ab->at(0) == "wall\n")
-        {
-            int j = 1;
-            e.createWall(abc, def, ab->at(j).toFloat(), ab->at(j+1).toFloat(),
-                         ab->at(j+2).toFloat(), ab->at(j+3).toFloat(),
-                         "wall", 256, 1, "CONINUOUS");
-        }
-        if (ab->at(0) == "ball\n")
-        {
-            int j = 1;
-            //            e.createWall(abc, def, ab->at(j).toFloat(), ab->at(j+1).toFloat(),
-            //                                 ab->at(j+2).toFloat(), ab->at(j+3).toFloat(),
-            //                                 "wall", 256, 1, "CONINUOUS");
-        }
-    }
+    e.createWall(10, 20, 30, 30, "wall", 256, 1, "CONTINUOUS");
+
+//    for (int i = 0; i < bigV.size(); ++i)
+//    {
+//        QVector<QString>* ab = bigV.at(i);
+//        if (ab->at(0) == "wall\n")
+//        {
+//            int j = 1;
+//            e.createWall(abc, ab->at(j).toFloat(), ab->at(j+1).toFloat(),
+//                         ab->at(j+2).toFloat(), ab->at(j+3).toFloat(),
+//                         "wall", 256, 1, "CONINUOUS");
+//        }
+//        if (ab->at(0) == "ball\n")
+//        {
+//            int j = 1;
+//            //            e.createWall(abc, def, ab->at(j).toFloat(), ab->at(j+1).toFloat(),
+//            //                                 ab->at(j+2).toFloat(), ab->at(j+3).toFloat(),
+//            //                                 "wall", 256, 1, "CONINUOUS");
+//        }
+//    }
 
     //    e.createFlange(abc, def, 20, 60, 100);
-    e.closeDXF(def);
+    e.closeDXF();
 
-    QProcess::execute("librecad myfile.dxf");
+    QProcess::execute("librecad file.dxf");
 }

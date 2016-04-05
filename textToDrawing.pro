@@ -13,7 +13,7 @@ CONFIG   += console
 CONFIG   -= app_bundle
 
 TEMPLATE = app
-LIBS += -ldxflib
+LIBS += -ldxfrw
 SOURCES += main.cpp \
     entity.cpp
 
